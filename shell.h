@@ -1,25 +1,35 @@
-#define SHELL_H
-#ifndef SHELL_H
+#ifndef _SHELL_H_
+#define _SHELL_H_
 
 #include <stdio.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <string.h>
 #include <stdlib.h>
-#include <stddef.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <limits.h>
+#include <fcntl.h>
+#include <errno.h>
 
-void _printf(const char *message);
-void _prompt(void);
-void read_cmd(char *command, size_t size);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-char **_strtok(char *line, char *delim);
-int token_len(char *str, char *delim);
-int count_tokens(char *str, char *delim);
+/* for read/write buffers */
+#define READ_BUF_SIZE 1024
+#define WRITE_BUF_SIZE 1024
+#define BUF_FLUSH -1
+
+#define USE_GETLINE 0
+#define USE_STRTOK 0
 
 
+ struct liststr - singly linked list
+ * @num: the number field
+ * @str: a string
+ * @next: points to the next node
+ */
+typedef struct liststr
+{
+	int num;
+	char *str;
+	struct liststr *next;
+} list_t;
 
-
-
-#endif
