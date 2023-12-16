@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * _myhistory - displays history list, one command per line
- * @info: structure containing potential arguments used to maintain
- * constant function prototype
+ * _myhistory - displays the history list, one command by line, preceded
+ *              with line numbers, starting at 0.
+ * @info: Structure containing potential arguments. Used to maintain
+ *        constant function prototype.
  *  Return: Always 0
  */
-
 int _myhistory(info_t *info)
 {
 	print_list(info->history);
@@ -16,41 +16,41 @@ int _myhistory(info_t *info)
 /**
  * unset_alias - sets alias to string
  * @info: parameter struct
- * @str: string alias
- * Return: always 0 on success, 1 on error
+ * @str: the string alias
+ *
+ * Return: Always 0 on success, 1 on error
  */
-
 int unset_alias(info_t *info, char *str)
 {
-	char *pi, c;
-	int reu;
+	char *p, c;
+	int ret;
 
 	p = _strchr(str, '=');
-	if (!pi)
+	if (!p)
 		return (1);
-	c = *pi;
-	*pi = 0;
-	reu = delete_node_at_index(&(info->alias),
+	c = *p;
+	*p = 0;
+	ret = delete_node_at_index(&(info->alias),
 		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
-	*pi = c;
-	return (reu);
+	*p = c;
+	return (ret);
 }
 
 /**
  * set_alias - sets alias to string
  * @info: parameter struct
- * @str: string alias
- * Return: always 0 on success, 1 on error
+ * @str: the string alias
+ *
+ * Return: Always 0 on success, 1 on error
  */
-
 int set_alias(info_t *info, char *str)
 {
-	char *pi;
+	char *p;
 
-	pi = _strchr(str, '=');
-	if (!pi)
+	p = _strchr(str, '=');
+	if (!p)
 		return (1);
-	if (!*++pi)
+	if (!*++p)
 		return (unset_alias(info, str));
 
 	unset_alias(info, str);
@@ -59,19 +59,19 @@ int set_alias(info_t *info, char *str)
 
 /**
  * print_alias - prints an alias string
- * @node: alias node
- * Return: always 0 on success, 1 on error
+ * @node: the alias node
+ *
+ * Return: Always 0 on success, 1 on error
  */
-
 int print_alias(list_t *node)
 {
-	char *pi = NULL, *att = NULL;
+	char *p = NULL, *a = NULL;
 
 	if (node)
 	{
-		pi = _strchr(node->str, '=');
-		for (att = node->str; a <= p; att++)
-			_putchar(*att);
+		p = _strchr(node->str, '=');
+		for (a = node->str; a <= p; a++)
+			_putchar(*a);
 		_putchar('\'');
 		_puts(p + 1);
 		_puts("'\n");
@@ -81,16 +81,15 @@ int print_alias(list_t *node)
 }
 
 /**
- * _myalias - mimics alias builtin (man alias)
- * @info: structure containing potential arguments used to maintain
- * constant function prototype
- *  Return: always 0
+ * _myalias - mimics the alias builtin (man alias)
+ * @info: Structure containing potential arguments. Used to maintain
+ *          constant function prototype.
+ *  Return: Always 0
  */
-
 int _myalias(info_t *info)
 {
 	int i = 0;
-	char *pi = NULL;
+	char *p = NULL;
 	list_t *node = NULL;
 
 	if (info->argc == 1)

@@ -7,7 +7,7 @@
  *
  * Return: 0 on success, 1 on error, or error code
  */
-int main_shell(info_t *info, char **av)
+int hsh(info_t *info, char **av)
 {
 	ssize_t r = 0;
 	int builtin_ret = 0;
@@ -84,7 +84,6 @@ int find_builtin(info_t *info)
  * Return: void
  */
 void find_cmd(info_t *info)
-	
 {
 	char *path = NULL;
 	int i, k;
